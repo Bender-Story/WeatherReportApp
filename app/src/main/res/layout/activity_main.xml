@@ -9,16 +9,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.detailsView.MainActivity">
-
+<LinearLayout
+    android:id="@+id/searchLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    android:weightSum="4"
+    >
 
     <EditText
-        android:id="@+id/search_edit_text"
-        android:layout_width="match_parent"
+        android:id="@+id/searchEditText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="3"
         android:hint="@string/searchHint"
         android:layout_margin="@dimen/margin_16"
-        app:layout_constraintTop_toTopOf="parent"
         />
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/buttonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/search"
+        android:layout_weight="1"/>
+</LinearLayout>
 
     <TextView
         style="@style/subHeaderTextStyle"
@@ -36,7 +50,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/searchLayout"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0"
         >
@@ -48,12 +62,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:visible="@{false}"
+            android:layout_margin="@dimen/margin_8"
             layout="@layout/view_recylerview_results" />
 
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:visible="@{false}"
+            android:layout_margin="@dimen/margin_8"
             layout="@layout/view_recyclerview_recent" />
         </LinearLayout>
         

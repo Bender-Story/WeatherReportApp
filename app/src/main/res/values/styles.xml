@@ -26,4 +26,12 @@
         <item name="android:textColor">@color/subHeaderTextColor</item>
     </style>
 
+    <style name="buttonStyle">
+        <item name="android:textSize">@dimen/textSize_15</item>
+        <item name="android:textColor">@color/subHeaderTextColor</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

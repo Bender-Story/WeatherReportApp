@@ -7,4 +7,5 @@
     <color name="headerTextColor">#25282B</color>
     <color name="subHeaderTextColor">#4A4A4A</color>
     <color name="greyBackground">#929292</color>
+    <color name="lightGrey">#DCDCDC</color>
 </resources>

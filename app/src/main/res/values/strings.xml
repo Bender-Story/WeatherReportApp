@@ -7,4 +7,5 @@
 
     <string name="searchHead">Search Results</string>
     <string name="recentHead">Recent search Items</string>
+    <string name="search">Search</string>
 </resources>
