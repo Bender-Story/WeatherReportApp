@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="headerTextColor">#25282B</color>
+    <color name="subHeaderTextColor">#4A4A4A</color>
+    <color name="noteTextColor">#929292</color>
 </resources>

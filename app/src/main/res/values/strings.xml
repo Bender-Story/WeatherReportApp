@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WeatherReportApp</string>
+
+    <string name="nothingToDisplayText">Nothing to display, please start typing...</string>
+    <string name="header">World Weather Report</string>
+    <string name="searchHint">Please enter city name.</string>
+
+    <string name="searchHead">Search Results</string>
+    <string name="recentHead">Recent search Items</string>
 </resources>
