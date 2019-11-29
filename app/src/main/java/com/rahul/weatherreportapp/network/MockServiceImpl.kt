@@ -12,13 +12,13 @@ import retrofit2.mock.BehaviorDelegate
  *
  */
 class MockServiceImpl(private val delegate: BehaviorDelegate<ServiceInterface>) :ServiceInterface{
-    override fun getSearchList(key: String, location: String, format: String): Observable<SearchResults> {
+    override fun getSearchList(key: String?, location: String?, format: String): Observable<SearchResults> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getWeatherDetails(
-        key: String,
-        location: String,
+        key: String?,
+        location: String?,
         days: Int,
         format: String
     ): Observable<WeatherDetailsResult> {

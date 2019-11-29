@@ -24,7 +24,7 @@ class AppServiceRepo(serviceType: ServiceType):KoinComponent{
      * @param onSuccess success callback
      * @param onError error callback
      */
-    fun getSearchResults(location:String, onSuccess: (SearchResults?) -> Unit,
+    fun getSearchResults(location:String?, onSuccess: (SearchResults?) -> Unit,
                          onError: (String) -> Unit){
 
         serviceAPIHelper.getServiceinterface()!!.getSearchList(KEY,location)

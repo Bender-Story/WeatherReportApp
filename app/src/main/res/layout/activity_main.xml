@@ -26,6 +26,7 @@
         android:layout_margin="@dimen/margin_16"
         />
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/searchButton"
         style="@style/buttonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
         style="@style/subHeaderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:makeVisible="@{viewModel.showNoItems}"
         android:text="@string/nothingToDisplayText"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,14 +63,14 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:visible="@{false}"
+            app:visible="@{viewModel.showSearch}"
             android:layout_margin="@dimen/margin_8"
             layout="@layout/view_recylerview_results" />
 
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:visible="@{false}"
+            app:visible="@{viewModel.showrecent}"
             android:layout_margin="@dimen/margin_8"
             layout="@layout/view_recyclerview_recent" />
         </LinearLayout>

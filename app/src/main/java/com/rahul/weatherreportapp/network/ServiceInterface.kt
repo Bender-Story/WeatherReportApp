@@ -17,13 +17,13 @@ interface ServiceInterface {
      */
     @GET("search.ashx")
     fun getSearchList(
-        @Query("key") key: String, @Query("q") location: String,
+        @Query("key") key: String?, @Query("q") location: String?,
         @Query("format") format: String = "json"
     ): Observable<SearchResults>
 
     @GET("weather.ashx")
     fun getWeatherDetails(
-        @Query("key") key: String, @Query("q") location: String,
+        @Query("key") key: String?, @Query("q") location: String?,
         @Query("num_of_days") days: Int = 1,
         @Query("format") format: String = "json"
     ): Observable<WeatherDetailsResult>
