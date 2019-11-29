@@ -17,7 +17,13 @@
     <style name="subHeaderTextStyle">
         <item name="android:textSize">@dimen/textSize_18</item>
         <item name="android:textColor">@color/subHeaderTextColor</item>
+        <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="noteTextStyle">
+        <item name="android:textSize">@dimen/textSize_15</item>
+        <item name="android:textColor">@color/subHeaderTextColor</item>
     </style>
 
 </resources>
