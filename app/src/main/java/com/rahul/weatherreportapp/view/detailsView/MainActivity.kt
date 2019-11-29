@@ -1,7 +1,8 @@
-package com.rahul.weatherreportapp
+package com.rahul.weatherreportapp.view.detailsView
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.rahul.weatherreportapp.R
 
 class MainActivity : AppCompatActivity() {
 
