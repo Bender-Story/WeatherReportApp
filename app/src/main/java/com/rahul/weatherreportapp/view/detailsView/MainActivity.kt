@@ -6,7 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.rahul.weatherreportapp.R
+import com.rahul.weatherreportapp.database.AppDatabase
 import com.rahul.weatherreportapp.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_recyclerview_recent.*
@@ -21,12 +23,14 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModel<MainViewModel>()
     private lateinit var binding:ActivityMainBinding
 
+    var database: AppDatabase?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
          binding.viewModel=viewModel
         binding.executePendingBindings()
-
+        initDataBase()
         onSearchClick()
         addObservers()
     }
@@ -55,6 +59,8 @@ class MainActivity : AppCompatActivity() {
     private fun initSearchRecyclerView() {
         GlobalScope.launch(Dispatchers.Main) {
             val rowViewModels = viewModel?.getSearchRowViewModel{
+                var selectedData=it?.copy(timeStamp = System.currentTimeMillis())
+                    viewModel.getSelectedData(database,selectedData)
 
             } as ArrayList<MainRowViewModel>?
             // Add list to adapter using UI Thread
@@ -95,6 +101,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchSearchResults(location:String?){
         viewModel.fetchSearchList(location,{},{})
+    }
+
+    private fun initDataBase(){
+        database = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database-name"
+        ).build()
     }
 }
 

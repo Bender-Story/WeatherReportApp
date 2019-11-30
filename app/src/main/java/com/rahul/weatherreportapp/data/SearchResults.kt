@@ -1,4 +1,9 @@
 package com.rahul.weatherreportapp.data
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 data class SearchResults(
     val search_api: SearchApi
 )
@@ -30,4 +35,12 @@ data class Region(
 )
 data class WeatherUrl(
     val value: String
+)
+@Entity(tableName = "selectedDatabase")
+data class SelectedData(
+    @PrimaryKey val key:String,
+    @ColumnInfo(name = "countryName") val country:String,
+    @ColumnInfo(name = "areaName") val areaName:String,
+    @ColumnInfo(name = "timestamp") val timeStamp:Long=0
+
 )
