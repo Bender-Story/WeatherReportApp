@@ -3,16 +3,14 @@
 
 This App has been created to show the latest weather reports
 
-Screen 1 : On the launch of the app user will see a edit text where he can enter the city name and click on 
-search to see the results of cities that are available
+Screen 1 : On the launch of the app user will see a edit text where he can enter the city name to see the results of cities that are available.
 
 Screen 2: click on a city will take the user to the second screen which show details of the weather.
 
 Dialog : when there is a network error show error screen with a retry button.
 
 Use Case 1.
-As a user Given I am on the home screen When I type in to the search bar on the home page Then on click of search i
-will see a list of available cities that pattern matches what I have typed
+As a user Given I am on the home screen When I type in to the search bar on the home page to see a list of available cities that pattern matches what I have typed
 
 Use Case 2.
 As a user Given I am on the home screen And there is a list of available cities (based on what I've
