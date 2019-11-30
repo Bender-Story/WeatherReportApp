@@ -5,7 +5,7 @@
     <data>
         <variable name="viewModel" type="com.rahul.weatherreportapp.view.detailsView.MainViewModel"/>
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.detailsView.MainActivity">
@@ -13,7 +13,7 @@
     android:id="@+id/searchLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
+    android:layout_alignParentTop="true"
     android:weightSum="4"
     >
 
@@ -41,20 +41,13 @@
         android:layout_height="wrap_content"
         app:makeVisible="@{viewModel.showNoItems}"
         android:text="@string/nothingToDisplayText"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerInParent="true"/>
     
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchLayout"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginBottom="@dimen/margin_24"
+       android:layout_below="@+id/searchLayout"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,5 +70,5 @@
         
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 </layout>

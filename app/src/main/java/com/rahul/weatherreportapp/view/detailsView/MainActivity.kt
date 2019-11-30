@@ -57,16 +57,16 @@ class MainActivity : AppCompatActivity() {
      * load search recyclerview with latest changes
      */
     private fun initSearchRecyclerView() {
-        GlobalScope.launch(Dispatchers.Main) {
+
             val rowViewModels = viewModel?.getSearchRowViewModel{
                 var selectedData=it?.copy(timeStamp = System.currentTimeMillis())
-                    viewModel.getSelectedData(database,selectedData)
+                    viewModel.addSelectedData(database,selectedData)
 
             } as ArrayList<MainRowViewModel>?
             // Add list to adapter using UI Thread
             searchResultsRecyclerView.adapter = MainAdapter(rowViewModels)
             searchResultsRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-        }
+
 
     }
 
@@ -74,7 +74,6 @@ class MainActivity : AppCompatActivity() {
      * load recent recyclerview with latest changes
      */
     private fun initRecentRecyclerView() {
-        GlobalScope.launch(Dispatchers.Main) {
 
             val rowViewModels = viewModel?.getRecentRowViewModel{
 
@@ -83,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             // Add list to adapter using UI Thread
             recentSearchRecyclerView.adapter = MainAdapter(rowViewModels)
             recentSearchRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-        }
+
 
     }
 
@@ -95,6 +94,8 @@ class MainActivity : AppCompatActivity() {
                 val text=searchEditText.text.toString()
                 if(text.isNotEmpty())
                     fetchSearchResults(text)
+                else
+                    viewModel.searchList.postValue(listOf())
             }
 
     }
@@ -108,6 +109,8 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             AppDatabase::class.java, "database-name"
         ).build()
+
+        viewModel.getSelectedData(database)
     }
 }
 

@@ -9,7 +9,7 @@ import com.rahul.weatherreportapp.data.SelectedData
 
 @Dao
 interface SearchResultDao {
-    @Query("SELECT * FROM selectedDatabase")
+    @Query("SELECT * FROM selectedDatabase ORDER BY timestamp DESC LIMIT 10 ")
     fun getAll(): List<SelectedData>
 
     @Insert(onConflict=REPLACE)

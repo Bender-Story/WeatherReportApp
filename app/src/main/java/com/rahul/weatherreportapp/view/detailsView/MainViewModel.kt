@@ -66,16 +66,25 @@ class MainViewModel : ViewModel(), KoinComponent {
      *  Create a  recent MainRowViewModel list from the mutable list
      */
     fun getRecentRowViewModel(onSelected: (SelectedData?) -> Unit): List<MainRowViewModel>? {
-        return recentList.value?.map {
+        var list= recentList.value?.map {
             MainRowViewModel(it) { result->
                 onSelected.invoke(result)
             }
         }
+        return list
+//        return list?.sortedByDescending { it.result?.timeStamp }?.toList()
     }
 
-    fun getSelectedData(db: AppDatabase?, selectedData: SelectedData?){
+    fun addSelectedData(db: AppDatabase?, selectedData: SelectedData?){
         GlobalScope.launch(Dispatchers.IO) {
             addDataLocalData(db, selectedData)
+            var local = getDataFromLocalData(db)
+            recentList.postValue(local)
+        }
+    }
+
+    fun getSelectedData(db: AppDatabase?){
+        GlobalScope.launch(Dispatchers.IO) {
             var local = getDataFromLocalData(db)
             recentList.postValue(local)
         }
