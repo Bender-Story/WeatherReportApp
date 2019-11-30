@@ -6,12 +6,11 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_4">4dp</dimen>
     <dimen name="margin_24">24dp</dimen>
-    <dimen name="progressSize">48dp</dimen>
+    <dimen name="imageSize">60dp</dimen>
     <dimen name="textSize_18">18dp</dimen>
     <dimen name="textSize_15">15dp</dimen>
     <dimen name="textSize_12">12dp</dimen>
 
-    <dimen name="imageSize">32dp</dimen>
 
     <dimen name="line_height">1dp</dimen>
 </resources>

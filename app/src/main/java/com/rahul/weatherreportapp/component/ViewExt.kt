@@ -4,9 +4,8 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-import java.net.URL
+import com.bumptech.glide.Glide
+
 
 
 /**
@@ -36,7 +35,12 @@ fun AppCompatTextView.visibleOnText(visible: String?) {
 
 @BindingAdapter("loadURL")
 fun ImageView.loadFromURL(url: String){
-    val url = URL(url)
-    val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-  setImageBitmap(bmp)
+    Glide.with(this.context).load(url).into(this)
+//    if(url.isNotEmpty()) {
+//        GlobalScope.launch(Dispatchers.Main) {
+//            val url = URL(url)
+//            val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+//            setImageBitmap(bmp)
+//        }
+//    }
 }

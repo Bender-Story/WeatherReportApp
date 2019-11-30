@@ -9,6 +9,9 @@
             name="viewModel"
             type="com.rahul.weatherreportapp.view.detailsView.WeatherDetailsViewModel" />
     </data>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,35 +19,48 @@
     tools:context=".view.detailsView.WeatherDetailsActivity">
 
     <TextView
+        style="@style/headerTextStyle"
         android:id="@+id/cityName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.city}"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="@dimen/imageSize"
+        android:layout_height="@dimen/imageSize"
+        android:layout_margin="@dimen/margin_16"
+        app:loadURL="@{viewModel.imageUrl}"/>
 
     <TextView
+        style="@style/headerTextStyle"
         android:id="@+id/humidty"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.humidty}"/>
 
     <TextView
+        style="@style/headerTextStyle"
         android:id="@+id/weatherText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.weatherText}"/>
 
     <TextView
+        style="@style/headerTextStyle"
         android:id="@+id/tempInC"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.tempInC}"/>
 
     <TextView
+        style="@style/headerTextStyle"
         android:id="@+id/tempInF"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.tempInF}"/>
 
 
 
 </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

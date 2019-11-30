@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rahul.weatherreportapp.ServiceType
 import com.rahul.weatherreportapp.data.Result
+import com.rahul.weatherreportapp.data.SearchResults
 import com.rahul.weatherreportapp.data.SelectedData
 import com.rahul.weatherreportapp.database.*
 import com.rahul.weatherreportapp.network.AppServiceRepo
@@ -27,10 +28,10 @@ class MainViewModel : ViewModel(), KoinComponent {
      *  call service to fetch trending list from the github and update the mutable list
      */
     fun  fetchSearchList(location:String?,
-        onSuccess: () -> Unit,
-        onError: (String) -> Unit
+                         onSuccess: (SearchResults?) -> Unit,
+                         onError: (String) -> Unit
     ) { appServiceRepo.getSearchResults(location,{ response ->
-            onSuccess.invoke()
+            onSuccess.invoke(response)
             searchList.postValue(response?.search_api?.result)
         }, {
                 onError.invoke(it)
@@ -77,7 +78,6 @@ class MainViewModel : ViewModel(), KoinComponent {
             }
         }
         return list
-//        return list?.sortedByDescending { it.result?.timeStamp }?.toList()
     }
 
     fun addSelectedData(db: AppDatabase?, selectedData: SelectedData?){
@@ -99,16 +99,10 @@ class MainViewModel : ViewModel(), KoinComponent {
         db?.addDataToLocalDatabase(selectedData)
     }
 
-    fun deleteLocalData(db: AppDatabase?){
-        db?.deleteall()
-    }
+
 
     fun getDataFromLocalData(db: AppDatabase?):  List<SelectedData?>? {
        return db?.getDataFromLocalDataBase()
-    }
-
-    fun deleteLocalData(db: AppDatabase?, selectedData: SelectedData){
-        db?.delete(selectedData)
     }
 
 
