@@ -1,8 +1,14 @@
 package com.rahul.weatherreportapp.component
 
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import java.net.URL
+
+
 /**
  * View extension class any modifications to any class that extends
  * view will be handled here
@@ -26,4 +32,11 @@ fun View.makeVisible(visible: Boolean) {
 @BindingAdapter("visibleOnText")
 fun AppCompatTextView.visibleOnText(visible: String?) {
     this.visibility = if (visible.isNullOrEmpty()) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter("loadURL")
+fun ImageView.loadFromURL(url: String){
+    val url = URL(url)
+    val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+  setImageBitmap(bmp)
 }

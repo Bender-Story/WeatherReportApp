@@ -2,73 +2,82 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <variable name="viewModel" type="com.rahul.weatherreportapp.view.detailsView.MainViewModel"/>
+
+        <variable
+            name="viewModel"
+            type="com.rahul.weatherreportapp.view.searchview.MainViewModel" />
     </data>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.detailsView.MainActivity">
-<LinearLayout
-    android:id="@+id/searchLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:weightSum="4"
-    >
 
-    <EditText
-        android:id="@+id/searchEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:hint="@string/searchHint"
-        android:layout_margin="@dimen/margin_16"
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/searchButton"
-        style="@style/buttonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/search"
-        android:layout_weight="1"/>
-</LinearLayout>
-
-    <TextView
-        style="@style/subHeaderTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:makeVisible="@{viewModel.showNoItems}"
-        android:text="@string/nothingToDisplayText"
-        android:layout_centerInParent="true"/>
-    
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_24"
-       android:layout_below="@+id/searchLayout"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_8"
         >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:visible="@{viewModel.showSearch}"
-            android:layout_margin="@dimen/margin_8"
-            layout="@layout/view_recylerview_results" />
 
-        <include
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:visible="@{viewModel.showrecent}"
-            android:layout_margin="@dimen/margin_8"
-            layout="@layout/view_recyclerview_recent" />
-        </LinearLayout>
-        
+            android:layout_height="match_parent"
+            tools:context=".view.searchview.MainActivity">
+
+            <LinearLayout
+                android:id="@+id/searchLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:weightSum="4">
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_16"
+                    android:layout_weight="3"
+                    android:hint="@string/searchHint" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/searchButton"
+                    style="@style/buttonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_16"
+                    android:layout_weight="1"
+                    android:text="@string/search" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/subHeaderTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/nothingToDisplayText"
+                app:makeVisible="@{viewModel.showNoItems}" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/searchLayout"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/view_recylerview_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_8"
+                    app:visible="@{viewModel.showSearch}" />
+
+                <include
+                    layout="@layout/view_recyclerview_recent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_8"
+                    app:visible="@{viewModel.showrecent}" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
-
-</RelativeLayout>
 </layout>

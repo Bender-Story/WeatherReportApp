@@ -1,6 +1,5 @@
-package com.rahul.weatherreportapp.view.detailsView
+package com.rahul.weatherreportapp.view.searchview
 
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,7 +55,13 @@ class MainViewModel : ViewModel(), KoinComponent {
      */
     fun getSearchRowViewModel(onSelected: (SelectedData?) -> Unit): List<MainRowViewModel>? {
         return searchList.value?.map {
-            MainRowViewModel(SelectedData(it.country.first().value +"," +it.areaName.first().value ,it.country.first().value,it.areaName.first().value)) { result->
+            MainRowViewModel(
+                SelectedData(
+                    it.country.first().value + "," + it.areaName.first().value,
+                    it.country.first().value,
+                    it.areaName.first().value
+                )
+            ) { result ->
                 onSelected.invoke(result)
             }
         }
@@ -67,7 +72,7 @@ class MainViewModel : ViewModel(), KoinComponent {
      */
     fun getRecentRowViewModel(onSelected: (SelectedData?) -> Unit): List<MainRowViewModel>? {
         var list= recentList.value?.map {
-            MainRowViewModel(it) { result->
+            MainRowViewModel(it) { result ->
                 onSelected.invoke(result)
             }
         }

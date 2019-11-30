@@ -8,4 +8,13 @@
     <string name="searchHead">Search Results</string>
     <string name="recentHead">Recent search Items</string>
     <string name="search">Search</string>
+    <string name="dialog_retry">Retry</string>
+
+    <string name="dialog_title">Error</string>
+
+    <string name="dialog_no">No</string>
+    <string name="network_error">Please check your network</string>
+
+    <string name="loading_head">Loading..</string>
+    <string name="loading_note">Please wait while we fetch the data</string>
 </resources>

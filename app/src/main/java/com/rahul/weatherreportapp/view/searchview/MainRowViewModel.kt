@@ -1,6 +1,5 @@
-package com.rahul.weatherreportapp.view.detailsView
+package com.rahul.weatherreportapp.view.searchview
 
-import com.rahul.weatherreportapp.data.Result
 import com.rahul.weatherreportapp.data.SelectedData
 
 /**

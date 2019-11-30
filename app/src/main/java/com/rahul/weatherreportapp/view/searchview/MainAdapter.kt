@@ -1,4 +1,4 @@
-package com.rahul.weatherreportapp.view.detailsView
+package com.rahul.weatherreportapp.view.searchview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

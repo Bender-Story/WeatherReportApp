@@ -45,7 +45,7 @@ class AppServiceRepo(serviceType: ServiceType):KoinComponent{
      * @param onSuccess success callback
      * @param onError error callback
      */
-    fun getweatherDetailsResults(location:String, onSuccess: (WeatherDetailsResult?) -> Unit,
+    fun getweatherDetailsResults(location:String?, onSuccess: (WeatherDetailsResult?) -> Unit,
                                  onError: (String) -> Unit){
 
         serviceAPIHelper.getServiceinterface()!!.getWeatherDetails(KEY,location)
