@@ -16,34 +16,70 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_recyclerview_recent.*
 import kotlinx.android.synthetic.main.view_recylerview_results.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import android.app.Activity
+import android.text.TextWatcher
 
-import android.view.inputmethod.InputMethodManager
 import com.rahul.weatherreportapp.Constants.LOCATION
 import com.rahul.weatherreportapp.navigation.Navigator
 import com.rahul.weatherreportapp.view.detailsView.WeatherDetailsActivity
+import android.text.Editable
+import android.os.Handler
 
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModel<MainViewModel>()
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
-    var database: AppDatabase?=null
+    var database: AppDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
-         binding.viewModel=viewModel
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.viewModel = viewModel
         binding.executePendingBindings()
         initDataBase()
-        onSearchClick()
+        addTextWatcher()
         addObservers()
+    }
+
+    /**
+     * search click listener
+     */
+    private fun getSearchList(text: String) {
+        if (text.isNotEmpty()) {
+            fetchSearchResults(text)
+        } else
+            viewModel.searchList.postValue(listOf())
+
+
+    }
+
+    private fun addTextWatcher() {
+
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            var considerChange = false
+            override fun afterTextChanged(s: Editable) {
+                if (considerChange) {
+                    Handler().postDelayed({
+                        getSearchList(s.toString())
+                    }, 100)
+                    considerChange = false
+                }
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                considerChange = true
+            }
+        })
+
     }
 
     /**
      * observer to check live data changes
      */
-    private fun addObservers(){
+    private fun addObservers() {
         viewModel.searchList.observe(this, Observer {
             initSearchRecyclerView()
             viewModel.checkIfListAreEmpty()
@@ -63,16 +99,16 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initSearchRecyclerView() {
 
-            val rowViewModels = viewModel?.getSearchRowViewModel{
-                var selectedData=it?.copy(timeStamp = System.currentTimeMillis())
-                    viewModel.addSelectedData(database,selectedData)
-                    goNext(it?.key?:"")
+        val rowViewModels = viewModel?.getSearchRowViewModel {
+            var selectedData = it?.copy(timeStamp = System.currentTimeMillis())
+            viewModel.addSelectedData(database, selectedData)
+            goNext(it?.key ?: "")
 
-            } as ArrayList<MainRowViewModel>?
-            // Add list to adapter using UI Thread
-            searchResultsRecyclerView.adapter =
-                MainAdapter(rowViewModels)
-            searchResultsRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+        } as ArrayList<MainRowViewModel>?
+        // Add list to adapter using UI Thread
+        searchResultsRecyclerView.adapter =
+            MainAdapter(rowViewModels)
+        searchResultsRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
 
     }
@@ -82,77 +118,54 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initRecentRecyclerView() {
 
-            val rowViewModels = viewModel?.getRecentRowViewModel{
-                                        goNext(it?.key?:"")
-            } as ArrayList<MainRowViewModel>?
+        val rowViewModels = viewModel?.getRecentRowViewModel {
+            var selectedData = it?.copy(timeStamp = System.currentTimeMillis())
+            viewModel.addSelectedData(database, selectedData)
+            goNext(it?.key ?: "")
+        } as ArrayList<MainRowViewModel>?
 
-            // Add list to adapter using UI Thread
-            recentSearchRecyclerView.adapter =
-                MainAdapter(rowViewModels)
-            recentSearchRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+        // Add list to adapter using UI Thread
+        recentSearchRecyclerView.adapter =
+            MainAdapter(rowViewModels)
+        recentSearchRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
 
     }
 
     private fun goNext(key: String) {
-        var bundle=Bundle()
-        bundle.putString(LOCATION,key)
-        Navigator.goToActivity(this, WeatherDetailsActivity::class.java,false,bundle = bundle)
+        var bundle = Bundle()
+        bundle.putString(LOCATION, key)
+        Navigator.goToActivity(this, WeatherDetailsActivity::class.java, false, bundle = bundle)
     }
 
-   private fun hideSoftKeyboard() {
-        val inputMethodManager = getSystemService(
-            Activity.INPUT_METHOD_SERVICE
-        ) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(
-            currentFocus!!.windowToken, 0
-        )
-    }
 
-    /**
-     * search click listener
-     */
-    private fun onSearchClick(){
-            searchButton.setOnClickListener {
-                hideSoftKeyboard()
-                val text=searchEditText.text.toString()
-                if(text.isNotEmpty()){
-                    searchEditText.text.clear()
-                    fetchSearchResults(text)
-                    }
-                else
-                    viewModel.searchList.postValue(listOf())
-            }
 
-    }
-
-    private fun fetchSearchResults(location:String?){
-        if(NetworkUtils.isNetworkAvailable(this)) {
-            val dialog=showLoadingDialog()
+    private fun fetchSearchResults(location: String?) {
+        if (NetworkUtils.isNetworkAvailable(this)) {
+//            val dialog=showLoadingDialog()
             viewModel.fetchSearchList(location, {
-                dialog.dismiss()
+                //                dialog.dismiss()
             }, {
-                dialog.dismiss()
-                showErrorDialog(location,it)
+                //                dialog.dismiss()
+                showErrorDialog(location, it)
             })
-        }else{
-            showErrorDialog(location,getString(R.string.network_error))
+        } else {
+            showErrorDialog(location, getString(R.string.network_error))
         }
     }
 
     private fun showLoadingDialog(): AlertDialog {
-       return ActivityUIExt(this).buildLoadingDialog()
+        return ActivityUIExt(this).buildLoadingDialog()
     }
 
 
-
-    private fun showErrorDialog(location:String?,error:String){
-        ActivityUIExt(this).buildDialog(error,onReload={
+    private fun showErrorDialog(location: String?, error: String) {
+        ActivityUIExt(this).buildDialog(error, onReload = {
             fetchSearchResults(location)
-        },onNegitive={viewModel.searchList.postValue(listOf())})
+        }, onNegitive = { viewModel.searchList.postValue(listOf()) })
     }
 
-    private fun initDataBase(){
+    private fun initDataBase() {
         database = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "database-name"
