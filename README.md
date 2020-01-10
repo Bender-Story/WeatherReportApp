@@ -70,8 +70,8 @@ The libraries or languages that are being used for this project are.
 
 8. RecyclerViews
 
-10. androidx components
+9. androidx components
 
-11. coroutines
+10. coroutines
 
-12.Koin
+11.Koin
